@@ -7,10 +7,11 @@ public class SpawnBelt : MonoBehaviour {
 
     private float time;
     public GameObject platform;
+    public static float PLATFORM_SPEED = -0.08f;
     //private List<Platform> platforms;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         this.time = Time.time;
 	}
 	
@@ -20,10 +21,12 @@ public class SpawnBelt : MonoBehaviour {
         if(this.time < Time.time)
         {
             //random spawn time
-            float randSpawn = UnityEngine.Random.Range(1.0f, 2.0f);
+            float randSpawn = UnityEngine.Random.Range(1.0f, 1.8f);
             this.time = Time.time + randSpawn;
 
-           CreatePlatform();
+            CreatePlatform();
+
+            PLATFORM_SPEED -= 0.01f;
         }
         //Debug.Log("TIME CREATED: " + Time.time);
     }

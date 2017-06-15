@@ -5,13 +5,15 @@ using System;
 
 public class FlipScript : MonoBehaviour {
 
+    public bool waitingToJump; //true if the turtle is in line, false otherwise
+
     public Explosion explosionGroundHit;
     public Explosion explosionAwesomeHit;  
     private Explosion tempExplosion;
 
     private float jumpforce = 65f;
     private float gravity = 250;
-    private Vector3 moves = Vector3.zero;
+    public Vector3 moves = Vector3.zero;
     private Vector3 startingPos;
     private bool collided;
     private Collider platformCollision;
@@ -19,7 +21,7 @@ public class FlipScript : MonoBehaviour {
     private float maxDist;
     private bool awesomeCollisionDetection; //detect for a perfect collision only once
     //private Animator CubeAnimation;
-    private bool flipMode;
+    public bool flipMode;
     private Quaternion startRotation;
 
     // Use this for initialization
@@ -28,7 +30,7 @@ public class FlipScript : MonoBehaviour {
         this.startingPos = this.transform.position;
         this.collided = false;
         this.awesomeCollisionDetection = false;
-        this.maxDist = this.transform.position.x - 20.0f;
+        this.maxDist = this.transform.position.x - 100.0f;
         this.flipMode = false;
         this.startRotation = this.transform.rotation;
     }
@@ -162,9 +164,11 @@ public class FlipScript : MonoBehaviour {
         //else
         //{
 
+        if (!this.waitingToJump)
+        {
             CharacterController Controller = gameObject.GetComponent<CharacterController>();
 
-            if (Input.GetKeyDown(KeyCode.Space) && !this.flipMode && !this.collided)
+            if (Input.GetKeyDown(KeyCode.Space) && !this.flipMode && !this.collided && !this.waitingToJump)
             {
                 //CubeAnimation.SetBool("AnimState", true);
                 moves.y = jumpforce;
@@ -175,9 +179,10 @@ public class FlipScript : MonoBehaviour {
             moves.y -= gravity * Time.deltaTime;
 
             Controller.Move(moves * Time.deltaTime);
+        }
         //}
 
-        if(this.transform.position.y < -20.0f || this.transform.position.x < this.maxDist)
+        if (this.transform.position.y < -20.0f || this.transform.position.x < this.maxDist)
         {
             Destroy(this.gameObject);
         }
@@ -203,5 +208,6 @@ public class FlipScript : MonoBehaviour {
     }
 
     public bool getCollided() { return this.collided; }
+    public bool getFlipMode() { return this.flipMode; }
 
 }

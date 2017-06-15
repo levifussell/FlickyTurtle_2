@@ -151,7 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5f9923e5412eb40a0a6215a45fb0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionGroundHit: {fileID: 114512260657795310, guid: 5d1e873e8c672e548923b9233ca6331f,
+  waitingToJump: 0
+  explosionGroundHit: {fileID: 114414405217158846, guid: 2c3f9c63a992f794296e6ddfa0fd8e26,
+    type: 2}
+  explosionAwesomeHit: {fileID: 114512260657795310, guid: 5d1e873e8c672e548923b9233ca6331f,
     type: 2}
 --- !u!143 &143636570777192146
 CharacterController:
