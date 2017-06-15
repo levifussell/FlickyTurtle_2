@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Blockify : MonoBehaviour {
 
-    public static float spacing = 0.5f;
+    public static float spacing = 0.70f;
 
     // Use this for initialization
     void Start () {

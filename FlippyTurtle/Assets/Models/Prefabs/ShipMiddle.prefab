@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4696857696290596}
   - component: {fileID: 65058737055207418}
   - component: {fileID: 65174396143768470}
+  - component: {fileID: 114660710832174590}
   m_Layer: 0
   m_Name: ShipMiddle
   m_TagString: Untagged
@@ -135,3 +136,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10.42, y: 1, z: 23.97}
   m_Center: {x: -2.04, y: 7.49, z: -4}
+--- !u!114 &114660710832174590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645287582993092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e7c5faed8ecc48a5d8460cac6e950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collided: 0

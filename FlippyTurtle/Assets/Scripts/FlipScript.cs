@@ -57,7 +57,7 @@ public class FlipScript : MonoBehaviour {
         //}
 
         //Debug.Log("NAME---- " + other.name);
-        if (other.name.CompareTo("PlatformPiece 1(Clone)") == 0 || other.name.CompareTo("first_block") == 0)
+        if (other.name.CompareTo("ShipMiddle(Clone)") == 0 || other.name.CompareTo("first_block") == 0)
         {
             if(!this.collided)
             {
@@ -69,7 +69,7 @@ public class FlipScript : MonoBehaviour {
                 this.collided = true;
                 this.platformCollision = other;
                 this.collisionOffset = this.transform.position - this.platformCollision.transform.position;
-                this.collisionOffset.y = other.GetComponent<BoxCollider>().size.y / 2;
+                this.collisionOffset.y = other.GetComponent<BoxCollider>().size.y / 4;
 
             }
 
