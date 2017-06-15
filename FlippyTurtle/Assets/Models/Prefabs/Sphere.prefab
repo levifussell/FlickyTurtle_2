@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 114399205381891730, guid: 96bf0dd4bf0c70a409aee517b336d498, type: 2}
-  coin: {fileID: 1272564416467432, guid: 8c3a6401a371961428e5fad91eb30548, type: 2}
+  coin: {fileID: 1092623102611816, guid: 3eaadc1622ac3c44184b463cda7b0b21, type: 2}
 --- !u!135 &135187537570109490
 SphereCollider:
   m_ObjectHideFlags: 1
