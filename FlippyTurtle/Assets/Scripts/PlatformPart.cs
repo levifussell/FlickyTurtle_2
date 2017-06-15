@@ -12,6 +12,7 @@ public class PlatformPart : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         this.collided = false;
+        this.transform.Rotate(new Vector3(0, 90, 0));
     }
 	
 	// Update is called once per frame

@@ -40,6 +40,7 @@ public class SpawnCube : MonoBehaviour {
         int position = nextCubes.Count;
         Vector3 offset = new Vector3(2.0f * position, 0, 0);
         FlipScript platformTemp = Instantiate(cube, this.spawnPoint + offset, this.transform.rotation);
+        platformTemp.transform.Rotate(new Vector3(0, 180, 0));
         //this.currentCube = platformTemp;
         this.nextCubes.Add(platformTemp);
         //Debug.Log("NEW CUBE CREATED: " + this.transform.position);

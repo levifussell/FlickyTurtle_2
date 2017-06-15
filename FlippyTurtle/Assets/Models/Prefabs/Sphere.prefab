@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4a03d4de0294c4888f59a0dc232e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 114835490100507128, guid: e1a30a252787d32489f772c6d4adaa66, type: 2}
+  block: {fileID: 114399205381891730, guid: 96bf0dd4bf0c70a409aee517b336d498, type: 2}
   coin: {fileID: 1272564416467432, guid: 8c3a6401a371961428e5fad91eb30548, type: 2}
 --- !u!135 &135187537570109490
 SphereCollider:

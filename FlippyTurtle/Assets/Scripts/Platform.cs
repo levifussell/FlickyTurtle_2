@@ -40,7 +40,7 @@ public class Platform : MonoBehaviour {
         {
             Vector3 offsetTemp = Vector3.zero;
             PlatformPart blockTemp = (Instantiate(block, this.transform.position + posOffset * i, this.transform.rotation) as PlatformPart);
-            blockTemp.GetComponent<Renderer>().material.color = Color.black;
+            //blockTemp.GetComponent<Renderer>().material.color = Color.black;
             blockTemp.setParentPos(this.transform.position);
             if (i == 0)
             {
