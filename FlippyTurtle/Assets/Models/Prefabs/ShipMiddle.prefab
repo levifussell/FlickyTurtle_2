@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4696857696290596}
   - component: {fileID: 65058737055207418}
   - component: {fileID: 65174396143768470}
-  - component: {fileID: 114660710832174590}
+  - component: {fileID: 114399205381891730}
   m_Layer: 0
   m_Name: ShipMiddle
   m_TagString: Untagged
@@ -65,9 +65,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1645287582993092}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.3509846, y: 2.25, z: 3.94}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.075, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4151321403694948}
   m_Father: {fileID: 0}
@@ -136,7 +136,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10.42, y: 1, z: 23.97}
   m_Center: {x: -2.04, y: 7.49, z: -4}
---- !u!114 &114660710832174590
+--- !u!114 &114399205381891730
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

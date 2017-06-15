@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 4511798647784758}
   - component: {fileID: 65042650086605226}
   - component: {fileID: 65942935056214760}
+  - component: {fileID: 114783784068076548}
   m_Layer: 0
   m_Name: ShipBack
   m_TagString: Untagged
@@ -112,8 +113,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1829746677315100}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.2461333, y: 2.47, z: 3.6136394}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.075, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4980978273074046}
   - {fileID: 4485748104255530}
@@ -231,6 +232,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114783784068076548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829746677315100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e7c5faed8ecc48a5d8460cac6e950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collided: 0
 --- !u!212 &212329757246584140
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -93,7 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4a03d4de0294c4888f59a0dc232e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  block: {fileID: 114660710832174590, guid: 96bf0dd4bf0c70a409aee517b336d498, type: 2}
+  block: {fileID: 114399205381891730, guid: 96bf0dd4bf0c70a409aee517b336d498, type: 2}
+  frontBlock: {fileID: 114539499406741534, guid: de4e575cfcc666343a7748de7ac4d847,
+    type: 2}
+  backBlock: {fileID: 114783784068076548, guid: ce0908164218d0444a32fab405b8a113,
+    type: 2}
   coin: {fileID: 1272564416467432, guid: 8c3a6401a371961428e5fad91eb30548, type: 2}
 --- !u!135 &135187537570109490
 SphereCollider:
