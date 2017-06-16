@@ -108,7 +108,7 @@ public class Platform : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        Vector3 speed = new Vector3(0.0f, 0.0f, PlatformPart.speedMove);
+        Vector3 speed = new Vector3(0.0f, 0.0f, SpawnBelt.PLATFORM_SPEED);
 
         //Debug.Log(this.transform.position.x);
         //Vector3 posBit = this.transform.position + this.offset[i];

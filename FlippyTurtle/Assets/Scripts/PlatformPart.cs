@@ -5,7 +5,7 @@ using System;
 
 public class PlatformPart : MonoBehaviour {
 
-    public static float speedMove = -0.08f;
+    //public static float speedMove = -0.08f;
     private Vector3 parentPos;
     public bool collided;
 
