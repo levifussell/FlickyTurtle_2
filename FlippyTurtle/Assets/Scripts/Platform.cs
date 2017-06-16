@@ -14,6 +14,11 @@ public class Platform : MonoBehaviour {
     public PlatformPart block;
     public PlatformPart frontBlock;
     public PlatformPart backBlock;
+
+    public PlatformPart blockBouncey;
+    public PlatformPart frontBlockBouncey;
+    public PlatformPart backBlockBouncey;
+
     private List<PlatformPart> blocks;
     private List<Vector3> offset;
 
@@ -31,30 +36,67 @@ public class Platform : MonoBehaviour {
 	void Start () {
 
         this.collided = false;
-        this.size = UnityEngine.Random.Range(minSize, maxSize);
+
+        if (SpawnBelt.bounceyCount > 0)
+        {
+            this.size = SpawnBelt.bounceySize;
+        }
+        else
+        {
+            //get the type of this platform correlating with the turtle type
+            SpawnCube.CubeTypes nextType = SpawnCube.getNextPlatformLineup().Dequeue();
+
+            if (nextType == SpawnCube.CubeTypes.Normal)
+                this.size = 3; //UnityEngine.Random.Range(minSize, maxSize);
+            else if (nextType == SpawnCube.CubeTypes.Big)
+                this.size = 4;
+        }
+
         this.dampenHit = 0.5f / this.size;
         this.blocks = new List<PlatformPart>();
         this.offset = new List<Vector3>();
         //GetComponent<Collider>().bounds.size.x
         //this.bitify();
-        Vector3 posOffset = new Vector3(Blockify.spacing + 0.1f, 0.0f, 0.0f);
+
+        //determine platform type
+        PlatformPart frontPart = frontBlock;
+        PlatformPart backPart = backBlock;
+        PlatformPart middlePart = block;
+
+        int randPlatType = UnityEngine.Random.Range(0, 4);
+        if(randPlatType < 1 || SpawnBelt.bounceyCount > 0)
+        {
+            SpawnBelt.bounceySize = this.size;
+            SpawnBelt.bounceyCount--;
+
+            if (SpawnBelt.bounceyCount == -1)
+                SpawnBelt.bounceyCount = 3;
+
+            Debug.Log("BOUNCEY COUNT: " + SpawnBelt.bounceyCount);
+
+            frontPart = backBlockBouncey;
+            backPart = frontBlockBouncey;
+            middlePart = blockBouncey;
+        }
+
+        Vector3 posOffset = new Vector3(Blockify.spacing + 0.8f, 0.0f, 0.0f);
         for(int i = 0; i < this.size; ++i)
         {
             Vector3 offsetTemp = Vector3.zero;
             PlatformPart blockTemp;
             if(i == 0)
             {
-                blockTemp = (Instantiate(backBlock, this.transform.position + posOffset * (i + 1), this.transform.rotation) as PlatformPart);
+                blockTemp = (Instantiate(backPart, this.transform.position + posOffset * (i + 1), this.transform.rotation) as PlatformPart);
                 offsetTemp = posOffset * (i + 1) - new Vector3(0.0f, 0.0f, 0.0f);
             }
             else if(i == this.size - 1)
             {
-                blockTemp = (Instantiate(frontBlock, this.transform.position + posOffset * (i - 1), this.transform.rotation) as PlatformPart);
+                blockTemp = (Instantiate(frontPart, this.transform.position + posOffset * (i - 1), this.transform.rotation) as PlatformPart);
                 offsetTemp = posOffset * (i - 1) + new Vector3(0.0f, 0.0f, 0.0f);
             }
             else
             {
-                blockTemp = (Instantiate(block, this.transform.position + posOffset * i, this.transform.rotation) as PlatformPart);
+                blockTemp = (Instantiate(middlePart, this.transform.position + posOffset * i, this.transform.rotation) as PlatformPart);
                 offsetTemp = posOffset * i;
 
             }
