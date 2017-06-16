@@ -22,7 +22,10 @@ public class FlipScript : MonoBehaviour {
     private bool awesomeCollisionDetection; //detect for a perfect collision only once
     //private Animator CubeAnimation;
     public bool flipMode;
+    private float flipDirection;
     private Quaternion startRotation;
+
+    private SpawnCube.CubeTypes type;
 
     // Use this for initialization
     void Start () {
@@ -81,7 +84,9 @@ public class FlipScript : MonoBehaviour {
             {
                 float distX = Math.Abs((this.transform.position.x + this.GetComponent<BoxCollider>().size.x / 2) - other.transform.position.x);
                 Debug.Log("dist to awesome: " + distX);
-                if (distX < 3.9f && distX > 3.45f)
+                //7.5 > , < 7.38
+                if ((this.type == SpawnCube.CubeTypes.Normal && distX < 3.9f && distX > 3.45f)
+                    || (this.type == SpawnCube.CubeTypes.Big && distX < 7.55f && distX > 7.15f))
                 {
                     this.platformCollision = other;
                     this.collisionOffset = this.transform.position - this.platformCollision.transform.position;
@@ -175,7 +180,9 @@ public class FlipScript : MonoBehaviour {
                 moves.z = 20f;
                 //Debug.Log("JUMP!");
                 this.flipMode = true;
-            }
+                //this.flipDirection = UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f ? 1.0f : -1.0f;
+                this.flipDirection = 1.0f;
+}
             moves.y -= gravity * Time.deltaTime;
 
             Controller.Move(moves * Time.deltaTime);
@@ -189,7 +196,7 @@ public class FlipScript : MonoBehaviour {
 
         if(this.flipMode && !this.collided)
         {
-            this.transform.Rotate(12f, 0.0f, 0.0f);
+            this.transform.Rotate(12f * this.flipDirection, 0.0f, 0.0f);
         }
 
         //update explosion to move with player
@@ -209,5 +216,7 @@ public class FlipScript : MonoBehaviour {
 
     public bool getCollided() { return this.collided; }
     public bool getFlipMode() { return this.flipMode; }
+
+    public void setCubeType(SpawnCube.CubeTypes type) { this.type = type; }
 
 }

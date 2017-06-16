@@ -48,7 +48,7 @@ public class SpawnCube : MonoBehaviour {
 
         for(int i = 0; i < nextCubes.Count; ++i)
         {
-            if (nextCubes[i] == null || nextCubes[i].getCollided())
+            if (nextCubes[i] == null || nextCubes[i].getFlipMode())
             {
                 nextCubes.RemoveAt(i);
                 //break;
@@ -61,7 +61,7 @@ public class SpawnCube : MonoBehaviour {
                 Vector3 offset = this.spawnPointFromOrder(i);
                 Vector3 target = this.spawnPoint + offset;
                 Vector3 diffToTarget = target - nextCubes[i].transform.position;
-                Vector3 dampenMove = diffToTarget / 20.0f;
+                Vector3 dampenMove = diffToTarget / 4.0f;
                 dampenMove.y = -0.1f;
                 //nextCubes[i].transform.position = target; //+= dampenMove;
                 nextCubes[i].gameObject.GetComponent<CharacterController>().Move(dampenMove);
@@ -88,6 +88,8 @@ public class SpawnCube : MonoBehaviour {
             platformTemp = Instantiate(cubeBig, this.spawnPoint + offset, this.transform.rotation);
         else
             platformTemp = Instantiate(cubeNormal, this.spawnPoint + offset, this.transform.rotation);
+
+        platformTemp.setCubeType(nextType);
 
         platformTemp.transform.Rotate(new Vector3(0, 180, 0));
         if (this.nextCubes.Count == 0)
