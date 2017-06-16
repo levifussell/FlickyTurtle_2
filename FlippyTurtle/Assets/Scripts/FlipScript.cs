@@ -6,6 +6,7 @@ using System;
 public class FlipScript : MonoBehaviour {
 
     public Explosion explosionGroundHit;
+    public Explosion explosionAwesomeHit;  
     private Explosion tempExplosion;
 
     private float jumpforce = 65f;
@@ -57,7 +58,8 @@ public class FlipScript : MonoBehaviour {
         //}
 
         //Debug.Log("NAME---- " + other.name);
-        if (other.name.CompareTo("PlatformPiece 1(Clone)") == 0 || other.name.CompareTo("first_block") == 0)
+        if (other.name.CompareTo("ShipMiddle(Clone)") == 0 || other.name.CompareTo("first_block") == 0
+            || other.name.CompareTo("ShipFront(Clone)") == 0)
         {
             if(!this.collided)
             {
@@ -69,20 +71,21 @@ public class FlipScript : MonoBehaviour {
                 this.collided = true;
                 this.platformCollision = other;
                 this.collisionOffset = this.transform.position - this.platformCollision.transform.position;
-                this.collisionOffset.y = other.GetComponent<BoxCollider>().size.y / 2;
+                this.collisionOffset.y = other.GetComponent<BoxCollider>().size.y * 1.5f;
 
             }
 
             if (other.name.CompareTo("first_block") == 0 && !this.awesomeCollisionDetection)
             {
                 float distX = Math.Abs((this.transform.position.x + this.GetComponent<BoxCollider>().size.x / 2) - other.transform.position.x);
-
-                if (distX < 0.5f)
+                Debug.Log("dist to awesome: " + distX);
+                if (distX < 3.9f && distX > 3.45f)
                 {
                     this.platformCollision = other;
                     this.collisionOffset = this.transform.position - this.platformCollision.transform.position;
-                    //this.collisionOffset.y = other.GetComponent<BoxCollider>().size.y / 2; //+ this.transform.GetComponent<BoxCollider>().size.y;
-                    this.collisionOffset.x = -this.GetComponent<BoxCollider>().size.x / 2;
+                    this.collisionOffset.y = other.GetComponent<BoxCollider>().size.y * 1.5f; //+ this.transform.GetComponent<BoxCollider>().size.y;
+                    //this.collisionOffset.x = -this.GetComponent<BoxCollider>().size.x / 2;
+                    this.tempExplosion = (Instantiate(explosionAwesomeHit, this.transform.position, this.transform.rotation) as Explosion);
                     Debug.Log("--------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
 
@@ -149,7 +152,7 @@ public class FlipScript : MonoBehaviour {
             else
             {
                 //this.Reset();
-                Destroy(this);
+                Destroy(this.gameObject);
             }
 
             //move with conveyor belt
@@ -176,7 +179,7 @@ public class FlipScript : MonoBehaviour {
 
         if(this.transform.position.y < -20.0f || this.transform.position.x < this.maxDist)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         if(this.flipMode && !this.collided)

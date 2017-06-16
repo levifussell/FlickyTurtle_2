@@ -65,7 +65,7 @@ public class Explosion : MonoBehaviour {
         //initialise a list of random particles
         this.base_position = Vector3.zero;
         int number_of_particles = Random.Range(min_number_of_particles, max_number_of_particles);
-        Debug.Log("explosion of size: " + number_of_particles);
+        //Debug.Log("explosion of size: " + number_of_particles);
 
         this.particles = new List<ParticleData>();
 

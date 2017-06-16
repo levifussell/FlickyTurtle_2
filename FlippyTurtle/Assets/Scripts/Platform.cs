@@ -12,6 +12,8 @@ public class Platform : MonoBehaviour {
     private int size;
     //public GameObject spawnPoint;
     public PlatformPart block;
+    public PlatformPart frontBlock;
+    public PlatformPart backBlock;
     private List<PlatformPart> blocks;
     private List<Vector3> offset;
 
@@ -39,8 +41,24 @@ public class Platform : MonoBehaviour {
         for(int i = 0; i < this.size; ++i)
         {
             Vector3 offsetTemp = Vector3.zero;
-            PlatformPart blockTemp = (Instantiate(block, this.transform.position + posOffset * i, this.transform.rotation) as PlatformPart);
-            //blockTemp.GetComponent<Renderer>().material.color = Color.black;
+            PlatformPart blockTemp;
+            if(i == 0)
+            {
+                blockTemp = (Instantiate(backBlock, this.transform.position + posOffset * (i + 1), this.transform.rotation) as PlatformPart);
+                offsetTemp = posOffset * (i + 1) - new Vector3(0.0f, 0.0f, 0.0f);
+            }
+            else if(i == this.size - 1)
+            {
+                blockTemp = (Instantiate(frontBlock, this.transform.position + posOffset * (i - 1), this.transform.rotation) as PlatformPart);
+                offsetTemp = posOffset * (i - 1) + new Vector3(0.0f, 0.0f, 0.0f);
+            }
+            else
+            {
+                blockTemp = (Instantiate(block, this.transform.position + posOffset * i, this.transform.rotation) as PlatformPart);
+                offsetTemp = posOffset * i;
+
+            }
+
             blockTemp.setParentPos(this.transform.position);
             if (i == 0)
             {
@@ -51,7 +69,7 @@ public class Platform : MonoBehaviour {
             //float randScale = Random.Range(blockTemp.transform.localScale.z * 3, blockTemp.transform.localScale.z * 7);
             //blockTemp.transform.localScale = new Vector3(blockTemp.transform.localScale.x, blockTemp.transform.localScale.y, randScale);
             this.blocks.Add(blockTemp);
-            this.offset.Add(posOffset * i + offsetTemp);
+            this.offset.Add(offsetTemp);
         }
 
         startBobPos = this.transform.position.y;
@@ -61,19 +79,20 @@ public class Platform : MonoBehaviour {
         this.maxDist = this.transform.position.x - 50.0f;
 
         if(this.size % 2 == 0)
-            coinOffset = new Vector3((size + 0.5f) * Blockify.spacing, 0.5f, -4.5f);
+            coinOffset = new Vector3((size + -3f) * Blockify.spacing, 2f, 0f);
         else
-            coinOffset = new Vector3((size + 1) * Blockify.spacing, 0.5f, -4.5f);
+            coinOffset = new Vector3((size + -2.5f) * Blockify.spacing, 2f, 0f);
 
-        //if(UnityEngine.Random.Range(0, 5) == 1)
-          //  createCoin();
+        if(UnityEngine.Random.Range(0, 5) == 1)
+            createCoin();
     }
 
     private void OnDestroy()
     {
         for(int i = 0; i < this.blocks.Count; ++i)
         {
-            Destroy(this.blocks[i]);
+            if(this.blocks[i] != null)
+                Destroy(this.blocks[i].gameObject);
         }
     }
 
@@ -136,7 +155,7 @@ public class Platform : MonoBehaviour {
         if (this.transform.position.x < this.maxDist)
         {
             //Debug.Log("PLATFORM GONEWRWRWQARQWRQ");
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         //coin update
