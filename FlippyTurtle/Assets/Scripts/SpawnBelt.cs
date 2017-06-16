@@ -8,6 +8,7 @@ public class SpawnBelt : MonoBehaviour {
     private float time;
     public GameObject platform;
     public static float PLATFORM_SPEED = -0.08f;
+    public static float PLATFORM_SPEED_DECREASE = -0.01f;
     //private List<Platform> platforms;
 
     // Use this for initialization
@@ -26,7 +27,7 @@ public class SpawnBelt : MonoBehaviour {
 
             CreatePlatform();
 
-            PLATFORM_SPEED -= 0.01f;
+            PLATFORM_SPEED += PLATFORM_SPEED_DECREASE;
         }
         //Debug.Log("TIME CREATED: " + Time.time);
     }
