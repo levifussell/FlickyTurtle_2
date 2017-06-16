@@ -60,8 +60,8 @@ public class FlipScript : MonoBehaviour {
         //}
 
         //Debug.Log("NAME---- " + other.name);
-        if (other.name.CompareTo("ShipMiddle(Clone)") == 0 || other.name.CompareTo("first_block") == 0
-            || other.name.CompareTo("ShipFront(Clone)") == 0)
+        if (other.name.CompareTo("middle_block") == 0 || other.name.CompareTo("first_block") == 0)
+            //|| other.name.CompareTo("middle_block") == 0)
         {
             if(!this.collided)
             {

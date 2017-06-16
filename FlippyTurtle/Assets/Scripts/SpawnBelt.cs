@@ -13,6 +13,7 @@ public class SpawnBelt : MonoBehaviour {
 
     public static int bounceyCount;
     public static int bounceySize;
+    public static int maxBounceSequence = 3;
 
     // Use this for initialization
     void Start () {
@@ -29,6 +30,11 @@ public class SpawnBelt : MonoBehaviour {
         {
             //random spawn time
             float randSpawn = UnityEngine.Random.Range(1.0f, 1.8f);
+
+            //maybe create a random bouncey platform
+            int randPlatType = UnityEngine.Random.Range(0, 4);
+            if (randPlatType < 1 && bounceyCount == 0)
+                bounceyCount = maxBounceSequence;
 
             //if we are in bouncey block mode, add consecutive platforms at even time-points
             if (bounceyCount > 0)

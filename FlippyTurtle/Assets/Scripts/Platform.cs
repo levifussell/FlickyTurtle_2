@@ -37,7 +37,7 @@ public class Platform : MonoBehaviour {
 
         this.collided = false;
 
-        if (SpawnBelt.bounceyCount > 0)
+        if (SpawnBelt.bounceyCount > 0 && SpawnBelt.bounceyCount < SpawnBelt.maxBounceSequence)
         {
             this.size = SpawnBelt.bounceySize;
         }
@@ -63,23 +63,24 @@ public class Platform : MonoBehaviour {
         PlatformPart backPart = backBlock;
         PlatformPart middlePart = block;
 
-        int randPlatType = UnityEngine.Random.Range(0, 4);
-        if(randPlatType < 1 || SpawnBelt.bounceyCount > 0)
+
+        //int randPlatType = UnityEngine.Random.Range(0, 4);
+        if (SpawnBelt.bounceyCount > 0)
         {
             SpawnBelt.bounceySize = this.size;
             SpawnBelt.bounceyCount--;
 
-            if (SpawnBelt.bounceyCount == -1)
-                SpawnBelt.bounceyCount = 3;
+            //if (SpawnBelt.bounceyCount == -1)
+            //    SpawnBelt.bounceyCount = 3;
 
             Debug.Log("BOUNCEY COUNT: " + SpawnBelt.bounceyCount);
 
-            frontPart = backBlockBouncey;
-            backPart = frontBlockBouncey;
+            frontPart = frontBlockBouncey;
+            backPart = backBlockBouncey;
             middlePart = blockBouncey;
         }
 
-        Vector3 posOffset = new Vector3(Blockify.spacing + 0.8f, 0.0f, 0.0f);
+        Vector3 posOffset = new Vector3(Blockify.spacing + 0.1f, 0.0f, 0.0f);
         for(int i = 0; i < this.size; ++i)
         {
             Vector3 offsetTemp = Vector3.zero;
@@ -107,7 +108,10 @@ public class Platform : MonoBehaviour {
                 blockTemp.name = "first_block";
                 //offsetTemp.z += 1.0f;
             }
-
+            else
+            {
+                blockTemp.name = "middle_block";
+            }
             //float randScale = Random.Range(blockTemp.transform.localScale.z * 3, blockTemp.transform.localScale.z * 7);
             //blockTemp.transform.localScale = new Vector3(blockTemp.transform.localScale.x, blockTemp.transform.localScale.y, randScale);
             this.blocks.Add(blockTemp);
