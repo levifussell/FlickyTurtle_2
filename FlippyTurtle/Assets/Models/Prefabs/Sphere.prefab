@@ -98,6 +98,12 @@ MonoBehaviour:
     type: 2}
   backBlock: {fileID: 114783784068076548, guid: ce0908164218d0444a32fab405b8a113,
     type: 2}
+  blockBouncey: {fileID: 114948550027323192, guid: 0db2c6d8c8429554ab5965f2d6045dba,
+    type: 2}
+  frontBlockBouncey: {fileID: 114107825734123278, guid: ac1f21e511e84c44d899cb3f92b55aad,
+    type: 2}
+  backBlockBouncey: {fileID: 114160644678692562, guid: fde6849fd935db64aa82782ce98031ec,
+    type: 2}
   coin: {fileID: 1385236970278340, guid: 71ec76847088d434cbd21e2790049a41, type: 2}
 --- !u!135 &135187537570109490
 SphereCollider:
