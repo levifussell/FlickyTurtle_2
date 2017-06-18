@@ -206,9 +206,25 @@ public class Platform : MonoBehaviour {
             this.dampenHit -= 0.008f;
         }
 
-        if (this.transform.position.x < this.maxDist)
+        if (PlayButton.GAME_MODE == PlayButton.GameMode.GAME_OVER)
         {
-            //Debug.Log("PLATFORM GONEWRWRWQARQWRQ");
+            this.startBobPos -= this.dampenHit;
+            this.dampenHit += 0.01f * this.transform.position.x;
+        }
+        else if (PlayButton.GAME_MODE == PlayButton.GameMode.PAUSE_START)
+            Destroy(this.gameObject);
+
+        if (this.transform.position.x < -15.0f ||
+            this.transform.position.y < -20.0f)
+        {
+            //if the platform leaves the screen and it
+            // hasn't been collided with, the player loses
+            if (!this.collided)
+            {
+                Debug.Log("PLATFORM GAMEOVER!!");
+                PlayButton.GameOverCall();
+            }
+
             Destroy(this.gameObject);
         }
 

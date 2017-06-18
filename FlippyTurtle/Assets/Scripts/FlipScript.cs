@@ -22,8 +22,8 @@ public class FlipScript : MonoBehaviour {
     private bool awesomeCollisionDetection; //detect for a perfect collision only once
     //private Animator CubeAnimation;
     public bool flipMode;
-    public bool bounceMode;
     private float flipDirection;
+    private bool flipAndDie;
     private Quaternion startRotation;
 
     private SpawnCube.CubeTypes type;
@@ -36,6 +36,7 @@ public class FlipScript : MonoBehaviour {
         this.awesomeCollisionDetection = false;
         this.maxDist = this.transform.position.x - 100.0f;
         this.flipMode = false;
+        this.flipAndDie = false;
         this.startRotation = this.transform.rotation;
     }
 
@@ -62,6 +63,10 @@ public class FlipScript : MonoBehaviour {
         //    Debug.Log("COIN!");
         //    GameObject.Destroy(other);
         //}
+
+        //if we are flipping and dying we don't care about collisions
+        if (this.flipAndDie)
+            return;
 
         if (other.name.CompareTo("middle_block" + Platform.NAME_EXTEND_BOUNCEY) == 0
             || other.name.CompareTo("first_block" + Platform.NAME_EXTEND_BOUNCEY) == 0)
@@ -92,7 +97,7 @@ public class FlipScript : MonoBehaviour {
             if ((other.name.CompareTo("first_block") == 0)
                 && !this.awesomeCollisionDetection)
             {
-                float distX = Math.Abs((this.transform.position.x + this.GetComponent<BoxCollider>().size.x / 2) - other.transform.position.x);
+                float distX = (this.transform.position.x + this.GetComponent<BoxCollider>().size.x / 2) - other.transform.position.x;
                 Debug.Log("dist to awesome: " + distX);
                 //7.5 > , < 7.38
                 if ((this.type == SpawnCube.CubeTypes.Normal && distX < 3.9f && distX > 3.45f)
@@ -104,6 +109,16 @@ public class FlipScript : MonoBehaviour {
                     //this.collisionOffset.x = -this.GetComponent<BoxCollider>().size.x / 2;
                     this.tempExplosion = (Instantiate(explosionAwesomeHit, this.transform.position, this.transform.rotation) as Explosion);
                     Debug.Log("--------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                }
+                //here we check for the case to make the turtle fly to the right and die
+                else if ((this.type == SpawnCube.CubeTypes.Normal && distX < 2.55f)
+                    || (this.type == SpawnCube.CubeTypes.Big && distX < 6.15f))
+                {
+                    moves.y = 3.0f;
+                    moves.x = -10.0f;
+                    this.collided = false;
+                    this.flipAndDie = true;
+                    Debug.Log("FLY AnD DIE!!");
                 }
 
                 this.awesomeCollisionDetection = true;
@@ -179,15 +194,23 @@ public class FlipScript : MonoBehaviour {
         //else
         //{
 
+        if (PlayButton.GAME_MODE == PlayButton.GameMode.PAUSE_START && (this.flipMode || this.collided))
+            Destroy(this.gameObject);
+
         if (!this.waitingToJump)
         {
             CharacterController Controller = gameObject.GetComponent<CharacterController>();
 
-            if (Input.GetKeyDown(KeyCode.Space) && !this.flipMode && !this.collided && !this.waitingToJump)
+            if ((Input.GetKeyDown(KeyCode.Space) || PlayButton.GAME_MODE == PlayButton.GameMode.GAME_OVER)
+                && !this.flipMode && !this.collided && !this.waitingToJump)
             {
                 //CubeAnimation.SetBool("AnimState", true);
                 moves.y = jumpforce;
-                moves.z = 20f;
+
+                if (PlayButton.GAME_MODE == PlayButton.GameMode.GAME_OVER)
+                    moves.x = 30.0f * UnityEngine.Random.Range(-1.0f, 1.0f);
+
+                moves.z = PlayButton.GAME_MODE == PlayButton.GameMode.GAME_OVER ? 40f : 20f;
                 //Debug.Log("JUMP!");
                 this.flipMode = true;
                 //this.flipDirection = UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f ? 1.0f : -1.0f;
@@ -199,14 +222,22 @@ public class FlipScript : MonoBehaviour {
         }
         //}
 
-        if (this.transform.position.y < -20.0f || this.transform.position.x < this.maxDist)
+        //game over scenario because turtle mised platform
+        if (this.transform.position.y < -20.0f)
+        {
+            PlayButton.GameOverCall();
+            Destroy(this.gameObject);
+        }
+
+        if(this.transform.position.x < this.maxDist)
         {
             Destroy(this.gameObject);
         }
 
         if(this.flipMode && !this.collided)
         {
-            this.transform.Rotate(12f * this.flipDirection, 0.0f, 0.0f);
+            float zRoll = this.flipAndDie ? 12.0f : 0.0f; //if we are dying, roll to the left
+            this.transform.Rotate(12f * this.flipDirection, 0.0f, zRoll);
         }
 
         //update explosion to move with player
