@@ -22,6 +22,7 @@ public class FlipScript : MonoBehaviour {
     private bool awesomeCollisionDetection; //detect for a perfect collision only once
     //private Animator CubeAnimation;
     public bool flipMode;
+    public bool bounceMode;
     private float flipDirection;
     private Quaternion startRotation;
 
@@ -62,6 +63,14 @@ public class FlipScript : MonoBehaviour {
         //    GameObject.Destroy(other);
         //}
 
+        if (other.name.CompareTo("middle_block" + Platform.NAME_EXTEND_BOUNCEY) == 0
+            || other.name.CompareTo("first_block" + Platform.NAME_EXTEND_BOUNCEY) == 0)
+        {
+            moves.y = jumpforce * 1.0f;
+            moves.z = 0.0f;
+            moves.x = -SpawnBelt.PLATFORM_SPEED * 60.0f;
+        }
+
         //Debug.Log("NAME---- " + other.name);
         if (other.name.CompareTo("middle_block") == 0 || other.name.CompareTo("first_block") == 0)
             //|| other.name.CompareTo("middle_block") == 0)
@@ -80,7 +89,8 @@ public class FlipScript : MonoBehaviour {
 
             }
 
-            if (other.name.CompareTo("first_block") == 0 && !this.awesomeCollisionDetection)
+            if ((other.name.CompareTo("first_block") == 0)
+                && !this.awesomeCollisionDetection)
             {
                 float distX = Math.Abs((this.transform.position.x + this.GetComponent<BoxCollider>().size.x / 2) - other.transform.position.x);
                 Debug.Log("dist to awesome: " + distX);

@@ -9,6 +9,8 @@ public class SpawnBelt : MonoBehaviour {
     public GameObject platform;
     public static float PLATFORM_SPEED = -0.08f;
     public static float PLATFORM_SPEED_DECREASE = -0.001f;
+    private float minSpawnTime;
+    private float maxSpawnTime;
     //private List<Platform> platforms;
 
     public static int bounceyCount;
@@ -17,34 +19,38 @@ public class SpawnBelt : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        this.time = Time.time;
+        this.time = Time.time + 1;
 
+        this.minSpawnTime = 1.0f;
+        this.maxSpawnTime = 1.8f;
         bounceyCount = 0;
-
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
-        if(this.time < Time.time && SpawnCube.getNextPlatformLineup().Count > 0)
+        if(this.time < Time.time && (SpawnCube.getNextPlatformLineup().Count > 0 || bounceyCount > 0))
         {
             //random spawn time
-            float randSpawn = UnityEngine.Random.Range(1.0f, 1.8f);
+            float randSpawn = UnityEngine.Random.Range(this.minSpawnTime, this.maxSpawnTime);
 
             //maybe create a random bouncey platform
-            int randPlatType = UnityEngine.Random.Range(0, 4);
+            int randPlatType = UnityEngine.Random.Range(0, 5);
             if (randPlatType < 1 && bounceyCount == 0)
                 bounceyCount = maxBounceSequence;
 
             //if we are in bouncey block mode, add consecutive platforms at even time-points
             if (bounceyCount > 0)
-                randSpawn = 1.0f;
+                randSpawn = -0.08f/PLATFORM_SPEED;
 
             this.time = Time.time + randSpawn;
 
             CreatePlatform();
 
-            PLATFORM_SPEED += PLATFORM_SPEED_DECREASE;
+           // PLATFORM_SPEED += PLATFORM_SPEED_DECREASE;
+           // this.minSpawnTime += PLATFORM_SPEED * 0.0001f;
+           // this.maxSpawnTime += PLATFORM_SPEED * 0.01f;
         }
         //Debug.Log("TIME CREATED: " + Time.time);
     }
