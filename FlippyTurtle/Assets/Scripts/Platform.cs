@@ -32,6 +32,8 @@ public class Platform : MonoBehaviour {
     private bool collided;
     private float dampenHit;
 
+    public static string NAME_EXTEND_BOUNCEY = "_bouncey";
+
 	// Use this for initialization
 	void Start () {
 
@@ -59,6 +61,7 @@ public class Platform : MonoBehaviour {
         //this.bitify();
 
         //determine platform type
+        string name_extend = "";
         PlatformPart frontPart = frontBlock;
         PlatformPart backPart = backBlock;
         PlatformPart middlePart = block;
@@ -75,9 +78,14 @@ public class Platform : MonoBehaviour {
 
             Debug.Log("BOUNCEY COUNT: " + SpawnBelt.bounceyCount);
 
-            frontPart = frontBlockBouncey;
-            backPart = backBlockBouncey;
-            middlePart = blockBouncey;
+            //the final platform is not bouncey
+            if(SpawnBelt.bounceyCount > 0)
+            {
+                name_extend = NAME_EXTEND_BOUNCEY;
+                frontPart = frontBlockBouncey;
+                backPart = backBlockBouncey;
+                middlePart = blockBouncey;
+            }
         }
 
         Vector3 posOffset = new Vector3(Blockify.spacing + 0.1f, 0.0f, 0.0f);
@@ -105,12 +113,12 @@ public class Platform : MonoBehaviour {
             blockTemp.setParentPos(this.transform.position);
             if (i == 0)
             {
-                blockTemp.name = "first_block";
+                blockTemp.name = "first_block" + name_extend;
                 //offsetTemp.z += 1.0f;
             }
             else
             {
-                blockTemp.name = "middle_block";
+                blockTemp.name = "middle_block" + name_extend;
             }
             //float randScale = Random.Range(blockTemp.transform.localScale.z * 3, blockTemp.transform.localScale.z * 7);
             //blockTemp.transform.localScale = new Vector3(blockTemp.transform.localScale.x, blockTemp.transform.localScale.y, randScale);
@@ -198,9 +206,25 @@ public class Platform : MonoBehaviour {
             this.dampenHit -= 0.008f;
         }
 
-        if (this.transform.position.x < this.maxDist)
+        if (PlayButton.GAME_MODE == PlayButton.GameMode.GAME_OVER)
         {
-            //Debug.Log("PLATFORM GONEWRWRWQARQWRQ");
+            this.startBobPos -= this.dampenHit;
+            this.dampenHit += 0.01f * this.transform.position.x;
+        }
+        else if (PlayButton.GAME_MODE == PlayButton.GameMode.PAUSE_START)
+            Destroy(this.gameObject);
+
+        if (this.transform.position.x < -15.0f ||
+            this.transform.position.y < -20.0f)
+        {
+            //if the platform leaves the screen and it
+            // hasn't been collided with, the player loses
+            if (!this.collided)
+            {
+                Debug.Log("PLATFORM GAMEOVER!!");
+                PlayButton.GameOverCall();
+            }
+
             Destroy(this.gameObject);
         }
 

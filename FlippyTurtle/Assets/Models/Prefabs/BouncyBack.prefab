@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4828604994242464}
   - component: {fileID: 65335360786875290}
   - component: {fileID: 65167662526385780}
-  - component: {fileID: 114733995709254544}
+  - component: {fileID: 114262309701849860}
   m_Layer: 0
   m_Name: BouncyBack
   m_TagString: Untagged
@@ -232,7 +232,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114733995709254544
+--- !u!114 &114262309701849860
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
