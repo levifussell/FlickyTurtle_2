@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4308557787538650}
   - component: {fileID: 65356759031614148}
   - component: {fileID: 65147600707600132}
+  - component: {fileID: 114826756291323300}
   m_Layer: 0
   m_Name: BouncyFront
   m_TagString: Untagged
@@ -231,6 +232,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114826756291323300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1607443674267402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e7c5faed8ecc48a5d8460cac6e950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collided: 0
 --- !u!212 &212098792012450428
 SpriteRenderer:
   m_ObjectHideFlags: 1

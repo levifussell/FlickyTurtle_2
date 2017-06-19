@@ -24,6 +24,12 @@ public class SpawnCube : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        this.restart();
+	}
+
+    void restart()
+    {
         this.nextCubes = new List<FlipScript>();
         //this.currentCube = null;
         //this.nextCube = null;
@@ -35,23 +41,29 @@ public class SpawnCube : MonoBehaviour {
 
         //line up for turtles that have spawned and their required platforms
         next_platform_lineup = new Queue<CubeTypes>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        //if (PlayButton.GAME_OVER)
+        //    return;
+
         //if(this.currentCube == null || this.currentCube.getCollided() == true)
-        if(nextCubes.Count < maxQueue)
+        if(nextCubes.Count < maxQueue && PlayButton.GAME_MODE != PlayButton.GameMode.GAME_OVER)
         {
             this.CreateCube();
         }
+
+        if (nextCubes.Count == 0 && PlayButton.GAME_MODE == PlayButton.GameMode.GAME_OVER)
+            this.restart();
 
         for(int i = 0; i < nextCubes.Count; ++i)
         {
             if (nextCubes[i] == null || nextCubes[i].getFlipMode())
             {
                 nextCubes.RemoveAt(i);
-                //break;
+                break;
             }
             else if (nextCubes[i].waitingToJump && i == 0)
                 nextCubes[i].waitingToJump = false;

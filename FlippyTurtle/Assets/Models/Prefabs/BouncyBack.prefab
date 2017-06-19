@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4828604994242464}
   - component: {fileID: 65335360786875290}
   - component: {fileID: 65167662526385780}
+  - component: {fileID: 114262309701849860}
   m_Layer: 0
   m_Name: BouncyBack
   m_TagString: Untagged
@@ -231,6 +232,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114262309701849860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689267988610018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e7c5faed8ecc48a5d8460cac6e950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collided: 0
 --- !u!212 &212174345698712234
 SpriteRenderer:
   m_ObjectHideFlags: 1
