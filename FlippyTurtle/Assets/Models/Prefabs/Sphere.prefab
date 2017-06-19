@@ -100,9 +100,9 @@ MonoBehaviour:
     type: 2}
   blockBouncey: {fileID: 114948550027323192, guid: 0db2c6d8c8429554ab5965f2d6045dba,
     type: 2}
-  frontBlockBouncey: {fileID: 114107825734123278, guid: ac1f21e511e84c44d899cb3f92b55aad,
+  frontBlockBouncey: {fileID: 114678834892962030, guid: a5a3b028d484ed24f8f6532922316aca,
     type: 2}
-  backBlockBouncey: {fileID: 114160644678692562, guid: fde6849fd935db64aa82782ce98031ec,
+  backBlockBouncey: {fileID: 114733995709254544, guid: 04046255249a5a443811cfab6e86b56f,
     type: 2}
   coin: {fileID: 1385236970278340, guid: 71ec76847088d434cbd21e2790049a41, type: 2}
 --- !u!135 &135187537570109490
